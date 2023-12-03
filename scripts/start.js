@@ -32,7 +32,7 @@ async function initAPI() {
   })
 }
 async function serveMetadata(res, nft_id) {
-  var token_count = parseInt(await contract.methods.totalSupply().call())
+  var token_count = parseInt(await contract.methods.tokenCount().call())
   let return_value = {}
   if(nft_id < 0)
   {
@@ -40,7 +40,7 @@ async function serveMetadata(res, nft_id) {
   }else if(nft_id >= MAX_SUPPLY)
   {
     return_value = {error: "NFT ID must be lesser than max supply"}
-  }else if (nft_id >= token_count)
+  }else if (nft_id > token_count)
   {
     return_value = {error: "NFT ID must be already minted"}
   }else
