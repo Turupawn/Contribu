@@ -1,5 +1,7 @@
 const NETWORK_ID = 11155111
 
+const METADA_API_URL = "http://159.223.195.92:3000"
+
 const MY_CONTRACT_ADDRESS = "0xeA374ECc42E6CA0279F61772Af62a99Ccc950227"
 const MY_CONTRACT_ABI_PATH = "./json_abi/ContributionsNFTABI.json"
 var my_contract
@@ -85,7 +87,7 @@ async function loadDapp() {
         };
         awaitContract();
       } else {
-        document.getElementById("web3_message").textContent="Please connect to Rinkeby";
+        document.getElementById("web3_message").textContent="Please connect to Sepolia";
       }
     });
   };
@@ -101,15 +103,7 @@ async function connectWallet() {
 loadDapp()
 
 const onContractInitCallback = async () => {
-  var hello = await my_contract.methods.hello().call()
-  var count = await my_contract.methods.count().call()
-  var last_writer = await my_contract.methods.count().call()
-
-  var contract_state = "Hello: " + hello
-    + ", Count: " + count
-    + ", Last Writer: " + last_writer
-  
-  document.getElementById("contract_state").textContent = contract_state;
+  //document.getElementById("contract_state").textContent = contract_state;
 }
 
 const onWalletConnectedCallback = async () => {
@@ -118,15 +112,25 @@ const onWalletConnectedCallback = async () => {
 
 //// Functions ////
 
-const setHello = async (_hello) => {
-  const result = await my_contract.methods.setHello(_hello)
+const setContribution = async (nftId, contributionType, contributionAmount, timestamp, description) => {
+  const result = await my_contract.methods.setContribution(accounts[0], nftId, contributionType, contributionAmount, timestamp, description)
   .send({ from: accounts[0], gas: 0, value: 0 })
   .on('transactionHash', function(hash){
     document.getElementById("web3_message").textContent="Executing...";
   })
   .on('receipt', function(receipt){
     document.getElementById("web3_message").textContent="Success.";    })
+    console.log("Updating NFT id: " + nftId)
+    updateMetadata(nftId)
   .catch((revertReason) => {
     console.log("ERROR! Transaction reverted: " + revertReason.receipt.transactionHash)
   });
+}
+
+const updateMetadata = async (nftId) => {
+  fetch(METADA_API_URL + "/update/" + nftId)
+  .then(res => res.json())
+  .then(out =>
+    console.log(out))
+  .catch();
 }
