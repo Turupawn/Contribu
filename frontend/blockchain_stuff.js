@@ -113,7 +113,7 @@ const onWalletConnectedCallback = async () => {
 //// Functions ////
 
 const setContribution = async (nftId, contributionType, contributionAmount, timestamp, description) => {
-  const result = await my_contract.methods.setContribution(accounts[0], nftId, contributionType, contributionAmount, timestamp, description)
+  const result = await my_contract.methods.setContribution(nftId, contributionType, contributionAmount, timestamp, description)
   .send({ from: accounts[0], gas: 0, value: 0 })
   .on('transactionHash', function(hash){
     document.getElementById("web3_message").textContent="Executing...";
