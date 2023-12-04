@@ -1,5 +1,5 @@
 var MAX_SUPPLY = 9999999999
-const CONTRACT_ADDRESS = "0xeA374ECc42E6CA0279F61772Af62a99Ccc950227"
+const CONTRACT_ADDRESS = "0xC361DAb6B8D2BD50B252EAb774b3AF83d156Bd50"
 const PORT = 3000
 const IS_REVEALED = true
 const UNREVEALED_METADATA = {
@@ -51,11 +51,11 @@ async function serveMetadata(res, nft_id) {
 }
 
 async function updateMetadata(res, nftId) {
-  var contributionTypes = ["art","logistics","dev"]
+  var contributionTypes = ["Dummy trait"]
   var contributionAmounts = await contract.methods.getContributions(nftId, contributionTypes).call();
   console.log(contributionAmounts)
   var jsonResult = ''
-  jsonResult+='{"name":"ContributionNFTs#0","description":"Community contributions NFT, WIP","image":"https://raw.githubusercontent.com/Turupawn/NFTMetadata/main/contributionsNFTs/wip.png","attributes":['
+  jsonResult+='{"name":"ContributionNFTs#' + nftId + '","description":"Community contributions NFT, WIP","image":"https://raw.githubusercontent.com/Turupawn/NFTMetadata/main/contributionsNFTs/wip.png","attributes":['
   for(var i=0; i<contributionAmounts.length; i++)
   {
     if(i!=0) jsonResult+=','

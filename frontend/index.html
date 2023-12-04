@@ -17,9 +17,7 @@
   <label for="_contributionType">Contribution Type:</label>
   <br>
   <select id="_contributionType">
-    <option value="art">Art</option>
-    <option value="dev">Development</option>
-    <option value="logistics">Logistics</option>
+    <option value="Dummy trait">Dummy trait</option>
   </select>
   </br>
   <label for="_contributionAmount">Contribution Amount:</label>
@@ -58,7 +56,7 @@
   epochInput.value = currentEpochTimeInSeconds;
 
   const contributionType = document.getElementById('_contributionType');
-  var _contributionType = "art"
+  var _contributionType = "Dummy trait"
   contributionType.addEventListener('change', (event) => {
     _contributionType = event.target.value
   });
