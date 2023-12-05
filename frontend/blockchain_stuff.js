@@ -4,6 +4,7 @@ const METADA_API_URL = "https://todosland.xyz"
 
 const MY_CONTRACT_ADDRESS = "0xDd925028aea73a121182dB8998788f825c29fAd6"
 const MY_CONTRACT_ABI_PATH = "./json_abi/ContributionsNFTABI.json"
+var test
 var my_contract
 
 var accounts
