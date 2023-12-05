@@ -2,7 +2,7 @@ const NETWORK_ID = 534352
 
 const METADA_API_URL = "https://todosland.xyz"
 
-const MY_CONTRACT_ADDRESS = "0xb8C212B397408203E88e392F8f93Ee494517f6E0"
+const MY_CONTRACT_ADDRESS = "0xDd925028aea73a121182dB8998788f825c29fAd6"
 const MY_CONTRACT_ABI_PATH = "./json_abi/ContributionsNFTABI.json"
 var my_contract
 
