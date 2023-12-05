@@ -5,10 +5,10 @@
   "main": "main.js",
   "dependencies": {
     "@kleros/file-to-ipfs": "^0.3.2",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "web3": "^1.5.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "test",
     "start": "node scripts/start.js",

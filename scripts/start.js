@@ -11,6 +11,7 @@ const UNREVEALED_METADATA = {
 
 const fs = require('fs')
 const express = require('express')
+var cors = require('cors');
 const Web3 = require('web3')
 require('dotenv').config()
 const abi = require('../Contract.json')
@@ -20,6 +21,8 @@ Contract.setProvider(process.env.RPC_URL)
 const contract = new Contract(abi, CONTRACT_ADDRESS)
 
 const app = express()
+
+app.use(cors());
 
 app.use(express.static(__dirname + 'public'))
 app.use('/unrevealed', express.static(__dirname + '/unrevealed'));
