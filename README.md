@@ -72,13 +72,19 @@ Make sure you follow all these steps when launching this API:
 
 ## Deployments
 
-OP
+### OP
 
 ```
-0x191d6Df5C872DDA14bE59389341d5D6B256FFf28
+0x8d5cDc7d6cABc13bf982F3c39f3FA5bcaC7Da59b
 ```
 
-Scroll
+Squema ID
+
+```
+0x6d31aea5da7ef46bfaf9b2842fd5013fb1db5a46a24c855b361dbdee1f855573
+```
+
+### Scroll
 
 ```
 0xC361DAb6B8D2BD50B252EAb774b3AF83d156Bd50

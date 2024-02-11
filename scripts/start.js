@@ -1,5 +1,5 @@
 var MAX_SUPPLY = 9999999999
-const CONTRACT_ADDRESS = "0x191d6Df5C872DDA14bE59389341d5D6B256FFf28"
+const CONTRACT_ADDRESS = "0x8d5cDc7d6cABc13bf982F3c39f3FA5bcaC7Da59b"
 const PORT = 3000
 const IS_REVEALED = true
 const UNREVEALED_METADATA = {
@@ -54,7 +54,7 @@ async function serveMetadata(res, nft_id) {
 }
 
 async function updateMetadata(res, nftId) {
-  var contributionTypes = ["255"]
+  var contributionTypes = ["1","2","3","4"]
   var contributionAmounts = await contract.methods.getContributions(nftId, contributionTypes).call();
   console.log(contributionAmounts)
   var jsonResult = ''
