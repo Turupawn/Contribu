@@ -68,3 +68,18 @@ Make sure you follow all these steps when launching this API:
     * Run `npm run upload_images_gcs`
     * Install the google cloud console and run this to open the files in the browser instead of downloading them by downloading the Google Cloud SDK and running this: `gsutil -m setmeta -h "Content-Type: image/png" -h "Content-Disposition: inline;" gs://YOURBUCKETNAME/*`. Remember to set `YOURBUCKETNAME`.
 11. Once you want to reveal the Images and Metadata set the `IS_REVEALED` to `true` on `scripts/start.js`, stop and restart the server
+
+
+## Deployments
+
+OP
+
+```
+0x191d6Df5C872DDA14bE59389341d5D6B256FFf28
+```
+
+Scroll
+
+```
+0xC361DAb6B8D2BD50B252EAb774b3AF83d156Bd50
+```
