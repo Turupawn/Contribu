@@ -1,8 +1,8 @@
-const NETWORK_ID = 534352
+const NETWORK_ID = 10
 
 const METADA_API_URL = "https://todosland.xyz"
 
-const MY_CONTRACT_ADDRESS = "0xDd925028aea73a121182dB8998788f825c29fAd6"
+const MY_CONTRACT_ADDRESS = "0x8d5cDc7d6cABc13bf982F3c39f3FA5bcaC7Da59b"
 const MY_CONTRACT_ABI_PATH = "./json_abi/ContributionsNFTABI.json"
 var my_contract
 
@@ -87,7 +87,7 @@ async function loadDapp() {
         };
         awaitContract();
       } else {
-        document.getElementById("web3_message").textContent="Please connect to Sepolia";
+        document.getElementById("web3_message").textContent="Please connect to OP Mainnet";
       }
     });
   };
@@ -104,6 +104,29 @@ loadDapp()
 
 const onContractInitCallback = async () => {
   //document.getElementById("contract_state").textContent = contract_state;
+  let contributionTypes = []
+  for(let i=1; ; i++)
+  {
+    let contributionTypeName = await my_contract.methods.contributionTypes(i).call()
+    if(contributionTypeName == "")
+      break;
+    contributionTypes.push({id: i, name: contributionTypeName})
+  }
+
+  var select = document.getElementById('_contributionType');
+  // Loop through the JSON data
+  contributionTypes.forEach(function(item) {
+      // Create a new option element
+      var option = document.createElement('option');
+
+      // Set the value and text content of the option element
+      option.value = item.id;
+      option.textContent = item.name;
+
+      // Append the option element to the select element
+      select.appendChild(option);
+  });
+
 }
 
 const onWalletConnectedCallback = async () => {
@@ -112,19 +135,36 @@ const onWalletConnectedCallback = async () => {
 
 //// Functions ////
 
-const setContribution = async (nftId, contributionType, contributionAmount, timestamp, description) => {
-  const result = await my_contract.methods.setContribution(nftId, contributionType, contributionAmount, timestamp, description)
-  .send({ from: accounts[0], gas: 0, value: 0 })
-  .on('transactionHash', function(hash){
-    document.getElementById("web3_message").textContent="Executing...";
-  })
-  .on('receipt', function(receipt){
-    document.getElementById("web3_message").textContent="Success.";    })
-    console.log("Updating NFT id: " + nftId)
-    updateMetadata(nftId)
-  .catch((revertReason) => {
-    console.log("ERROR! Transaction reverted: " + revertReason.receipt.transactionHash)
-  });
+const setContribution = async (nftId, contributionType, contributionAmount, description) => {
+  if(!description || description=="" || description==null)
+  {
+    const result = await my_contract.methods.setContributionLean(nftId, contributionType, contributionAmount)
+    .send({ from: accounts[0], gas: 0, value: 0 })
+    .on('transactionHash', function(hash){
+      document.getElementById("web3_message").textContent="Executing...";
+    })
+    .on('receipt', function(receipt){
+      document.getElementById("web3_message").textContent="Success.";    })
+      console.log("Updating NFT id: " + nftId)
+      updateMetadata(nftId)
+    .catch((revertReason) => {
+      console.log("ERROR! Transaction reverted: " + revertReason.receipt.transactionHash)
+    });
+  }else
+  {
+    const result = await my_contract.methods.setContribution(nftId, contributionType, contributionAmount, description)
+    .send({ from: accounts[0], gas: 0, value: 0 })
+    .on('transactionHash', function(hash){
+      document.getElementById("web3_message").textContent="Executing...";
+    })
+    .on('receipt', function(receipt){
+      document.getElementById("web3_message").textContent="Success.";    })
+      console.log("Updating NFT id: " + nftId)
+      updateMetadata(nftId)
+    .catch((revertReason) => {
+      console.log("ERROR! Transaction reverted: " + revertReason.receipt.transactionHash)
+    });
+  }
 }
 
 const updateMetadata = async (nftId) => {

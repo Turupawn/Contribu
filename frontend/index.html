@@ -8,7 +8,7 @@
   <p id="account_address" style="display: none"></p>
   <p id="web3_message"></p>
   <p id="contract_state"></p>
-  <p>v0.6.5</p>
+  <p>v0.7.2</p>
   <h1>Contributions NFT Attester</h1>
   <h2>Attest Contribution</h2>
   <label for="_nftId">NFT ID:</label>
@@ -18,10 +18,6 @@
   <label for="_contributionType">Contribution Type:</label>
   <br>
   <select id="_contributionType">
-    <option value="Logistica">Logistica</option>
-    <option value="Marketing">Marketing</option>
-    <option value="Impartidor de conocimiento">Impartidor de conocimiento</option>
-    <option value="Patrocinador">Patrocinador</option>
   </select>
   </br>
   <label for="_contributionAmount">Contribution Amount:</label>
@@ -33,10 +29,6 @@
     <option value="4">4</option>
     <option value="5">5</option>
   </select>
-  </br>
-  <label for="_timestamp">Datetime:</label>
-  <br>
-  <input type="input"  value="" id="_timestamp"></input>
   </br>
   <label for="_hello">Description:</label>
   <br>
@@ -55,12 +47,8 @@
 </html>
 
 <script>
-  const currentEpochTimeInSeconds = Math.floor(Date.now() / 1000);
-  const epochInput = document.getElementById('_timestamp');
-  epochInput.value = currentEpochTimeInSeconds;
-
   const contributionType = document.getElementById('_contributionType');
-  var _contributionType = "Logistica"
+  var _contributionType = "1"
   contributionType.addEventListener('change', (event) => {
     _contributionType = event.target.value
   });
@@ -74,15 +62,8 @@
   function _setContribution()
   {
     _nftId = document.getElementById("_nftId").value
-    _timestamp = document.getElementById("_timestamp").value
     _description = document.getElementById("_description").value
-    console.log("Sending attestation...")
-    console.log("NFT ID: " + _nftId)
-    console.log("Contribution Type: " + _contributionType)
-    console.log("Contribution Amount: " + _contributionAmount)
-    console.log("Timestamp: " + _timestamp)
-    console.log("Description: " + _description)
-    setContribution(_nftId, _contributionType, _contributionAmount, _timestamp, _description)
+    setContribution(_nftId, _contributionType, _contributionAmount, _description)
   }
 
   function _updateMetadata()
