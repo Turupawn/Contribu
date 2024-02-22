@@ -62,7 +62,13 @@ async function updateMetadata(res, nftId) {
   for(var i=0; i<contributionAmounts.length; i++)
   {
     if(i!=0) jsonResult+=','
-    jsonResult += '{"trait_type":"' + (await contract.methods.contributionTypes(contributionTypes[i]).call()) + '","value":"' + contributionAmounts[i] + '"}'
+    let contributionTypeAmount = contributionAmounts[i]
+    let contributionTypeId = contributionTypes[i]
+    if(contributionTypeAmount != 0)
+    {
+      console.log("paste " + "./images/traits/"+ contributionTypeId + "/png")
+    }
+    jsonResult += '{"trait_type":"' + (await contract.methods.contributionTypes(contributionTypeId).call()) + '","value":"' + contributionTypeAmount + '"}'
   }
   jsonResult+=']}'
 
