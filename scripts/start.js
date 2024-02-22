@@ -54,7 +54,7 @@ async function serveMetadata(res, nft_id) {
 }
 
 async function updateMetadata(res, nftId) {
-  var contributionTypes = ["1","2","3","4"]
+  var contributionTypes = [1,2,3,4]
   var contributionAmounts = await contract.methods.getContributions(nftId, contributionTypes).call();
   console.log(contributionAmounts)
   var jsonResult = ''
@@ -62,7 +62,7 @@ async function updateMetadata(res, nftId) {
   for(var i=0; i<contributionAmounts.length; i++)
   {
     if(i!=0) jsonResult+=','
-    jsonResult += '{"trait_type":"' + contributionTypes[i] + '","value":"' + contributionAmounts[i] + '"}'
+    jsonResult += '{"trait_type":"' + (await contract.methods.contributionTypes(contributionTypes[i]).call()) + '","value":"' + contributionAmounts[i] + '"}'
   }
   jsonResult+=']}'
 
