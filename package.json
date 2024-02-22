@@ -7,6 +7,7 @@
     "@kleros/file-to-ipfs": "^0.3.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "images": "^3.2.4",
     "web3": "^1.5.2"
   },
   "scripts": {
