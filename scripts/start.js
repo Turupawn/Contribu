@@ -19,11 +19,12 @@ const Contract = require('web3-eth-contract')
 Contract.setProvider(process.env.RPC_URL)
 //Contract.setProvider("wss://ethereum-sepolia.publicnode.com")
 const contract = new Contract(abi, CONTRACT_ADDRESS)
+var images = require("images")
 
 const app = express()
 
 app.use(cors());
-
+app.use(express.static('images'))
 app.use(express.static(__dirname + 'public'))
 app.use('/unrevealed', express.static(__dirname + '/unrevealed'));
 
@@ -58,7 +59,14 @@ async function updateMetadata(res, nftId) {
   var contributionAmounts = await contract.methods.getContributions(nftId, contributionTypes).call();
   console.log(contributionAmounts)
   var jsonResult = ''
-  jsonResult+='{"name":"ContributionNFTs#' + nftId + '","description":"Community contributions NFT, WIP","image":"https://raw.githubusercontent.com/Turupawn/NFTMetadata/main/contributionsNFTs/wip.png","attributes":['
+  jsonResult+='{"name":"ContributionNFTs#' + nftId + '","description":"Community contributions NFT, WIP","image"' + metadataAPIURL + '"/images/"' + nft_id + '".png","attributes":['
+  
+  // clean
+  mergeImages("./images/" + nftId + ".png", 
+    "./images/base.png",
+    "./images/type/0.png"
+    )
+
   for(var i=0; i<contributionAmounts.length; i++)
   {
     if(i!=0) jsonResult+=','
@@ -66,7 +74,10 @@ async function updateMetadata(res, nftId) {
     let contributionTypeId = contributionTypes[i]
     if(contributionTypeAmount != 0)
     {
-      console.log("paste " + "./images/traits/"+ contributionTypeId + "/png")
+      mergeImages("./images/" + nftId + ".png", 
+        "./images/" + nftId + ".png",
+        "./images/types/"+ contributionTypeId + ".png"
+        )
     }
     jsonResult += '{"trait_type":"' + (await contract.methods.contributionTypes(contributionTypeId).call()) + '","value":"' + contributionTypeAmount + '"}'
   }
@@ -99,6 +110,12 @@ app.get('/:id', (req, res) => {
     serveMetadata(res, req.params.id)
   }
 })
+
+async function mergeImages(destination, imageA, imageB) {
+  images(imageA).
+    draw(images(imageB), 0, 0).
+    save(destination);
+}
 
 app.get('/update/:id', (req, res) => {
   updateMetadata(res, req.params.id)
