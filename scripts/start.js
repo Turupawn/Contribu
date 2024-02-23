@@ -8,6 +8,7 @@ const UNREVEALED_METADATA = {
   "image":"http://134.209.33.178:3000/unrevealed/image.png",
   "attributes":[{"???":"???"}]
 }
+const metadataAPIURL = "https://todosland.xyz/"
 
 const fs = require('fs')
 const express = require('express')
@@ -20,6 +21,7 @@ Contract.setProvider(process.env.RPC_URL)
 //Contract.setProvider("wss://ethereum-sepolia.publicnode.com")
 const contract = new Contract(abi, CONTRACT_ADDRESS)
 var images = require("images")
+var sharp = require("sharp")
 
 const app = express()
 
@@ -59,12 +61,12 @@ async function updateMetadata(res, nftId) {
   var contributionAmounts = await contract.methods.getContributions(nftId, contributionTypes).call();
   console.log(contributionAmounts)
   var jsonResult = ''
-  jsonResult+='{"name":"ContributionNFTs#' + nftId + '","description":"Community contributions NFT, WIP","image"' + metadataAPIURL + '"/images/"' + nft_id + '".png","attributes":['
-  
+  jsonResult+='{"name":"ContributionNFTs#' + nftId + '","description":"Community contributions NFT, WIP","image":"' + metadataAPIURL + nftId + '.png","attributes":['
+
   // clean
-  mergeImages("./images/" + nftId + ".png", 
+  await mergeImages("./images/"+ nftId +".png",
     "./images/base.png",
-    "./images/type/0.png"
+    "./images/types/0.png"
     )
 
   for(var i=0; i<contributionAmounts.length; i++)
@@ -74,7 +76,7 @@ async function updateMetadata(res, nftId) {
     let contributionTypeId = contributionTypes[i]
     if(contributionTypeAmount != 0)
     {
-      mergeImages("./images/" + nftId + ".png", 
+      await mergeImages("./images/" + nftId + ".png", 
         "./images/" + nftId + ".png",
         "./images/types/"+ contributionTypeId + ".png"
         )
@@ -112,9 +114,17 @@ app.get('/:id', (req, res) => {
 })
 
 async function mergeImages(destination, imageA, imageB) {
-  images(imageA).
-    draw(images(imageB), 0, 0).
-    save(destination);
+  const output = await sharp(imageA)
+  .composite([
+    { input: imageB, blend: 'over' }
+  ])
+  .toFile(destination + ".tmp");
+
+  await fs.promises.rename(destination + '.tmp', destination);
+
+//  images(imageA).
+//    draw(images(imageB), 0, 0).
+//    save(destination);
 }
 
 app.get('/update/:id', (req, res) => {
