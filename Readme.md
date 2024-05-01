@@ -1,4 +1,4 @@
-![image](https://github.com/Turupawn/Contribu/assets/707484/5fb448ff-dc74-4dc3-9cd0-3ad228cc2bc5)Contribu is a community NFT project that recognizes and incentivizes online community contributors. It proposes an alternative social dynamic focused on sustainability and friendliness for newcomers.
+Contribu is a community NFT project that recognizes and incentivizes online community contributors. It proposes an alternative social dynamic focused on sustainability and friendliness for newcomers.
 
 ## Features
 
@@ -22,7 +22,7 @@ Community organizers can create their own Contribu Collection. Each collection i
 
 Contributions are segmented into types, with community organizers having the freedom to choose categories that reflect the values of their community. Individuals can accumulate points by contributing to the community, with these points being visible across all NFT marketplaces and visualizers.
 
-![Screenshot from 2024-05-01 19-59-402](https://github.com/Turupawn/Contribu/assets/707484/f86d952c-d048-44f0-b643-bea9ff80de66)
+![image](https://github.com/Turupawn/Contribu/assets/707484/5fb448ff-dc74-4dc3-9cd0-3ad228cc2bc5)
 
 ### Point decay system (Anti OG mechanics)
 
