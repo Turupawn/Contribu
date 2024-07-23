@@ -1,6 +1,6 @@
 const NETWORK_ID = 10
 
-const METADA_API_URL = "https://todosland.xyz"
+const METADA_API_URL = "https://contribu.xyz"
 
 const MY_CONTRACT_ADDRESS = "0x8d5cDc7d6cABc13bf982F3c39f3FA5bcaC7Da59b"
 const MY_CONTRACT_ABI_PATH = "./json_abi/ContributionsNFTABI.json"

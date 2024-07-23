@@ -8,7 +8,7 @@ const UNREVEALED_METADATA = {
   "image":"http://134.209.33.178:3000/unrevealed/image.png",
   "attributes":[{"???":"???"}]
 }
-const metadataAPIURL = "https://todosland.xyz/"
+const metadataAPIURL = "https://contribu.xyz/"
 
 const fs = require('fs')
 const express = require('express')
